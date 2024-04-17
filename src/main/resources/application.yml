@@ -5,6 +5,13 @@ server:
   error:
     includeStacktrace: ALWAYS
 
+springdoc:
+  api-docs:
+    path: /api-docs
+  packages-to-scan: br.com.alura
+  swagger-ui:
+    path: /swagger-ui
+
 spring:
   application:
     name: test-case-java
