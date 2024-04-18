@@ -4,6 +4,7 @@ package br.com.alura.controller;
 import br.com.alura.controller.documentantion.CourseControllerDocumentation;
 import br.com.alura.model.dto.CourseDto;
 import br.com.alura.model.enums.CourseStatusDelimiter;
+import br.com.alura.model.enums.StatusModifier;
 import br.com.alura.service.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,12 @@ public class CourseController implements CourseControllerDocumentation {
         Page<CourseDto> coursePage = courseService.listCoursesByStatus(statusDelimiter, page, size);
         log.info("CourseController.createCourse() -> finish_process");
         return ResponseEntity.ok().body(coursePage);
+    }
+
+    @PatchMapping("/{courseCode}/inactivateCourseByCode")
+    public ResponseEntity<Void> updateCourseStatus(@PathVariable String courseCode,
+                                                   @RequestParam(value = "statusModifier") StatusModifier statusModifier) {
+        courseService.updateCourseStatus(courseCode, statusModifier);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }
