@@ -34,7 +34,7 @@ public class UserController implements UserControllerDocumentation {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<UserDto> findUserByUsername(@PathVariable String userName) {
         log.info("UserController.findUserByUsername() -> init_process");
-        UserDto userDto = userService.findUserByUserName(userName);
+        UserDto userDto = userService.findUserDtoByUserName(userName);
         log.info("UserController.findUserByUsername() -> finish_process, userDto {}", userDto);
         return ResponseEntity.ok().body(userDto);
     }
