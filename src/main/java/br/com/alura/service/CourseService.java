@@ -8,6 +8,7 @@ import br.com.alura.model.entity.Course;
 import br.com.alura.model.entity.User;
 import br.com.alura.model.enums.CourseStatusDelimiter;
 import br.com.alura.model.enums.Role;
+import br.com.alura.model.enums.StatusModifier;
 import br.com.alura.repository.CourseRepository;
 import br.com.alura.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Service
@@ -29,6 +31,9 @@ public class CourseService {
     private final CourseMapper courseMapper;
 
     private final CourseRepository courseRepository;
+
+    private static final boolean INACTIVATE_COURSE = false;
+    private static final boolean ACTIVATE_COURSE = true;
 
     public void createCourse(CourseDto courseDto) {
         log.info("CourseService.createCourse() -> init_process, courseDto {} ", courseDto);
@@ -51,6 +56,7 @@ public class CourseService {
     }
 
     public Page<CourseDto> listCoursesByStatus(CourseStatusDelimiter statusDelimiter, int page, int size) {
+        log.info("CourseService.listCoursesByStatus() -> init_process");
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Course> coursePage;
@@ -61,6 +67,16 @@ public class CourseService {
             default -> coursePage = courseRepository.findAll(pageable);
         }
         return coursePage.map(courseMapper::toDTO);
+    }
+
+    public void updateCourseStatus(String courseCode, StatusModifier statusModifier) {
+        log.info("CourseService.updateCourseStatus() -> init_process");
+        if (StatusModifier.INACTIVATE.equals(statusModifier)) {
+            courseRepository.updateCourse(INACTIVATE_COURSE, courseCode, OffsetDateTime.now());
+        } else {
+            courseRepository.updateCourse(ACTIVATE_COURSE, courseCode, null);
+        }
+        log.info("CourseService.updateCourseStatus() -> finish_process");
     }
 
 }
