@@ -49,7 +49,7 @@ public class AluraAPIExceptionHandler {
         return handleError(HttpStatus.BAD_REQUEST, "Data used on request is not correct.", request.getDescription(false));
     }
 
-    @ExceptionHandler({UnprocessableEntityException.class, CourseNotRegisteredException.class})
+    @ExceptionHandler({UnprocessableEntityException.class, CourseNotRegisteredException.class, UserNotRegisteredException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleUnprocessableEntityAndCourseNotRegisteredExceptions(final Exception ex, WebRequest request) {
         return handleError(HttpStatus.BAD_REQUEST, ex.getMessage(), request.getDescription(false));
