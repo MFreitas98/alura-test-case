@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -79,4 +80,8 @@ public class CourseService {
         log.info("CourseService.updateCourseStatus() -> finish_process");
     }
 
+    public Optional<Course> findCourseOptionalByCode(String courseCode) {
+        log.info("CourseService.findCourseOptionalByCode() -> init_process, courseCode {}", courseCode);
+        return Optional.of(courseRepository.findByCode(courseCode));
+    }
 }
