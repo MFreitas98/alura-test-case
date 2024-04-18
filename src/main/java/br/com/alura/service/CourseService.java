@@ -6,11 +6,15 @@ import br.com.alura.mapper.CourseMapper;
 import br.com.alura.model.dto.CourseDto;
 import br.com.alura.model.entity.Course;
 import br.com.alura.model.entity.User;
+import br.com.alura.model.enums.CourseStatusDelimiter;
 import br.com.alura.model.enums.Role;
 import br.com.alura.repository.CourseRepository;
 import br.com.alura.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -45,4 +49,18 @@ public class CourseService {
             throw new UnprocessableEntityException("Informed id was from an user that is not a instructor.Informed Role:" + role);
         }
     }
+
+    public Page<CourseDto> listCoursesByStatus(CourseStatusDelimiter statusDelimiter, int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Course> coursePage;
+
+        switch (statusDelimiter) {
+            case ACTIVE -> coursePage = courseRepository.findByStatus(true, pageable);
+            case INACTIVE -> coursePage = courseRepository.findByStatus(false, pageable);
+            default -> coursePage = courseRepository.findAll(pageable);
+        }
+        return coursePage.map(courseMapper::toDTO);
+    }
+
 }
