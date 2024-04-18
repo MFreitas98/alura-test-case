@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @RequiredArgsConstructor
 public class UserController implements UserControllerDocumentation {
@@ -25,24 +25,17 @@ public class UserController implements UserControllerDocumentation {
     @PostMapping(value = "/createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> createUser(@Valid @RequestBody UserDtoRequest userDtoRequest) {
-
         log.info("UserController.createUser() -> init_process");
-
         userService.createUser(userDtoRequest);
-
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{userName}/findUser")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<UserDto> findUserByUsername(@PathVariable String userName) {
-
         log.info("UserController.findUserByUsername() -> init_process");
-
         UserDto userDto = userService.findUserByUserName(userName);
-
         log.info("UserController.findUserByUsername() -> finish_process, userDto {}", userDto);
-
         return ResponseEntity.ok().body(userDto);
     }
 }
