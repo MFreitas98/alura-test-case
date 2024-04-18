@@ -26,6 +26,11 @@ spring:
     locations: classpath:db/migrations
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: "none"
+      naming.physical-strategy: "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl"
+    properties:
+      hibernate:
+        query.fail_on_pagination_over_collection_fetch: true
+        hql.bulk_id_strategy: "org.hibernate.hql.spi.id.inline.InlineIdsInClauseBulkIdStrategy"
+    open-in-view: false
