@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -19,7 +21,12 @@ public class UserService {
 
     private final UserMapper mapper;
 
-    public UserDto findUserByUserName(String userName) {
+    public Optional<User> findUserOptionalByUserName(String userName) {
+        log.info("UserService.findUserOptionalByUserName() -> init_process, userName {} ", userName);
+        return repository.findByUserName(userName);
+    }
+
+    public UserDto findUserDtoByUserName(String userName) {
         log.info("UserService.findUserByUserName() -> init_process, userName {} ", userName);
         User user = repository.findByUserName(userName).orElseThrow(UserNotFoundException::new);
         return mapper.toDTO(user);
