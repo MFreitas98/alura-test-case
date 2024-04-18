@@ -45,8 +45,8 @@ public class AluraAPIExceptionHandler {
 
     @ExceptionHandler({ConstraintViolationException.class, DataIntegrityViolationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorMessage handleDataBaseExceptions(final Exception ex, WebRequest request) {
-        return handleError(HttpStatus.BAD_REQUEST, ex.getMessage(), request.getDescription(false));
+    public ErrorMessage handleDataBaseExceptions(WebRequest request) {
+        return handleError(HttpStatus.BAD_REQUEST, "Data used on request is not correct.", request.getDescription(false));
     }
 
     private ErrorMessage handleError(HttpStatus status, String errorMessage, String requestDescription) {
