@@ -1,9 +1,10 @@
 package br.com.alura.exception;
 
 
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.MessageSource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -40,6 +41,12 @@ public class AluraAPIExceptionHandler {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ErrorMessage handleUserNotFoundException(final UserNotFoundException ex, WebRequest request) {
         return handleError(HttpStatus.NOT_FOUND, ex.getMessage(), request.getDescription(false));
+    }
+
+    @ExceptionHandler({ConstraintViolationException.class, DataIntegrityViolationException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleDataBaseExceptions(final Exception ex, WebRequest request) {
+        return handleError(HttpStatus.BAD_REQUEST, ex.getMessage(), request.getDescription(false));
     }
 
     private ErrorMessage handleError(HttpStatus status, String errorMessage, String requestDescription) {
