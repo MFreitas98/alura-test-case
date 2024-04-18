@@ -18,14 +18,14 @@ public class Enrollment {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
+    @JoinColumn(name = "course_id")
     private Course course;
 
-    @Column(name = "enrollment_date", nullable = false)
+    @Column(name = "enrollment_date")
     private OffsetDateTime enrollmentDate;
 
     @PrePersist
