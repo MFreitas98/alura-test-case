@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 public class EnrollmentDTO {
 
     @NotBlank
-    private UserDto userDto;
+    private String userName;
 
     @NotBlank
-    private CourseDto courseDto;
+    private String courseCode;
 }
