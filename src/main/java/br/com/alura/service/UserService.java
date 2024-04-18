@@ -21,16 +21,13 @@ public class UserService {
 
     public UserDto findUserByUserName(String userName) {
         log.info("UserService.findUserByUserName() -> init_process, userName {} ", userName);
-
         User user = repository.findByUserName(userName).orElseThrow(UserNotFoundException::new);
         return mapper.toDTO(user);
     }
 
     public void createUser(UserDtoRequest userDtoRequest) {
         log.info("UserService.createUser() -> init_process, userDtoRequest {} ", userDtoRequest);
-
         User entity = mapper.toEntity(userDtoRequest);
-
         repository.save(entity);
         log.info("UserService.createUser() -> finish_process");
     }
