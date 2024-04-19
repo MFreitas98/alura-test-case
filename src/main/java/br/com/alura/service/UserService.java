@@ -8,6 +8,8 @@ import br.com.alura.model.entity.User;
 import br.com.alura.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,6 +22,8 @@ public class UserService {
     private final UserRepository repository;
 
     private final UserMapper mapper;
+
+    private final PasswordEncoder passwordEncoder;
 
     public Optional<User> findUserOptionalByUserName(String userName) {
         log.info("UserService.findUserOptionalByUserName() -> init_process, userName {} ", userName);
@@ -35,6 +39,7 @@ public class UserService {
     public void createUser(UserDtoRequest userDtoRequest) {
         log.info("UserService.createUser() -> init_process, userDtoRequest {} ", userDtoRequest);
         User entity = mapper.toEntity(userDtoRequest);
+        entity.setPassword(passwordEncoder.encode(userDtoRequest.getPassword()));
         repository.save(entity);
         log.info("UserService.createUser() -> finish_process");
     }
