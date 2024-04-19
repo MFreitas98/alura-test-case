@@ -22,7 +22,8 @@ public class CourseDto implements Serializable {
     @NotBlank(message = "Course name should not be null or empty.")
     private String name;
 
-    @Pattern(regexp = "^[a-zA-Z]+(-[a-zA-Z]+)*$", message = "The course code must be alphabetic, without spaces, numeric characters, or special characters.")
+    @Pattern(regexp = "^[a-zA-Z]{1,10}(?:-[a-zA-Z]+)?$",
+            message = "The course code must be alphabetic, without spaces, numeric characters, or special characters, and have a maximum of 10 characters in length.")
     private String code;
 
     @NotNull
