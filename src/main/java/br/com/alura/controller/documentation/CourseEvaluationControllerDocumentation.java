@@ -6,6 +6,7 @@ import br.com.alura.model.enums.ScoreValue;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.List;
 @Tag(name = "CourseEvaluation Controller", description = "Controller to create CourseEvaluation and generateNPS on Alura API.")
 public interface CourseEvaluationControllerDocumentation {
 
-    @Operation(summary = "Create CourseEvaluation")
+    @Operation(summary = "Create CourseEvaluation", security = {@SecurityRequirement(name = "Basic")})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "CourseEvaluation Created"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
