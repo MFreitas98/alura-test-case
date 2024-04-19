@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +72,7 @@ public class CourseEvaluationService {
         if (coursesId.isEmpty()) {
             throw new UnprocessableEntityException("There is no Courses with more than four enrollments.");
         }
+
         List<NetPromoterScoreDto> netPromoterScoreList = new ArrayList<>();
         coursesId.forEach(courseId -> {
 
@@ -85,7 +88,9 @@ public class CourseEvaluationService {
             double promoterPercentage = (double) promoters / totalResponses * 100;
             double detractorPercentage = (double) detractors / totalResponses * 100;
 
-            double npsValue = promoterPercentage - detractorPercentage;
+            double npsValue = BigDecimal.valueOf(promoterPercentage - detractorPercentage)
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .doubleValue();
 
             netPromoterScoreList.add(NetPromoterScoreDto.builder()
                     .courseCode(courseEvaluationsRelated.getFirst().getCourse().getCode())

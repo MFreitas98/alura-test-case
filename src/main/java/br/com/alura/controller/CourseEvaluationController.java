@@ -2,6 +2,7 @@ package br.com.alura.controller;
 
 import br.com.alura.controller.documentation.CourseEvaluationControllerDocumentation;
 import br.com.alura.model.dto.CourseEvaluationDto;
+import br.com.alura.model.dto.NetPromoterScoreDto;
 import br.com.alura.model.enums.ScoreValue;
 import br.com.alura.service.CourseEvaluationService;
 import jakarta.validation.Valid;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/coursesEvaluations", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -26,5 +29,12 @@ public class CourseEvaluationController implements CourseEvaluationControllerDoc
         log.info("CourseEvaluationController.createCourseEvaluation() -> init_process");
         courseEvaluationService.createCourseEvaluation(courseEvaluationDto, scoreValue);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/generateNetPromoterScoreForAluraCourses")
+    public ResponseEntity<List<NetPromoterScoreDto>> generateNetPromoterScore() {
+        log.info("CourseEvaluationController.generateNetPromoterScore() -> init_process");
+        List<NetPromoterScoreDto> netPromoterScoreList = courseEvaluationService.generateNPS();
+        return ResponseEntity.ok().body(netPromoterScoreList);
     }
 }
