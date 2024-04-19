@@ -8,6 +8,6 @@ import lombok.experimental.StandardException;
 public class UserNotRegisteredException extends RuntimeException {
 
     public UserNotRegisteredException() {
-        super("user informed is not registered.");
+        super("User informed is not registered.");
     }
 }
