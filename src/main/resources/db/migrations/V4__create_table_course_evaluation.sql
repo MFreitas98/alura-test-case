@@ -1,4 +1,4 @@
-CREATE TABLE course_evaluation
+CREATE TABLE IF NOT EXISTS course_evaluation
 (
     id           BIGINT AUTO_INCREMENT NOT NULL,
     course_id    BIGINT                NOT NULL,

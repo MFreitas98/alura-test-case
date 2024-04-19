@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS user
     id         BIGINT AUTO_INCREMENT NOT NULL,
     name       VARCHAR(255)          NOT NULL,
     user_name  VARCHAR(20)           NOT NULL,
+    password   VARCHAR(255)          NOT NULL,
     email      VARCHAR(255)          NOT NULL,
     `role`     VARCHAR(255)          NOT NULL,
     created_at datetime              NOT NULL,

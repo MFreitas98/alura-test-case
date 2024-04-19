@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS course
     id             BIGINT AUTO_INCREMENT NOT NULL,
     name           VARCHAR(255)          NOT NULL,
     code           VARCHAR(10)           NOT NULL,
-    instructor_id  BIGINT                NULL,
+    instructor_id  BIGINT                NOT NULL,
     `description`  VARCHAR(255)          NOT NULL,
     status         BIT(1)                NOT NULL,
     created_at     datetime              NOT NULL,
