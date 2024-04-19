@@ -1,6 +1,6 @@
 package br.com.alura.controller;
 
-import br.com.alura.controller.documentantion.EnrollmentDocumentation;
+import br.com.alura.controller.documentation.EnrollmentDocumentation;
 import br.com.alura.model.dto.EnrollmentDto;
 import br.com.alura.service.EnrollmentService;
 import jakarta.validation.Valid;

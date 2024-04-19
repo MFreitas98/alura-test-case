@@ -1,7 +1,7 @@
 package br.com.alura.controller;
 
 
-import br.com.alura.controller.documentantion.CourseControllerDocumentation;
+import br.com.alura.controller.documentation.CourseControllerDocumentation;
 import br.com.alura.model.dto.CourseDto;
 import br.com.alura.model.enums.CourseStatusDelimiter;
 import br.com.alura.model.enums.StatusModifier;

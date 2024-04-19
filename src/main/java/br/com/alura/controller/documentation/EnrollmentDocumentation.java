@@ -1,4 +1,4 @@
-package br.com.alura.controller.documentantion;
+package br.com.alura.controller.documentation;
 
 import br.com.alura.model.dto.EnrollmentDto;
 import io.swagger.v3.oas.annotations.Operation;

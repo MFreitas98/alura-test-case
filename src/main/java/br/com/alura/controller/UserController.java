@@ -1,6 +1,6 @@
 package br.com.alura.controller;
 
-import br.com.alura.controller.documentantion.UserControllerDocumentation;
+import br.com.alura.controller.documentation.UserControllerDocumentation;
 import br.com.alura.model.dto.UserDto;
 import br.com.alura.model.dto.UserDtoRequest;
 import br.com.alura.service.UserService;
