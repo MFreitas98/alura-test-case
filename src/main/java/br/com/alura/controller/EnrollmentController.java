@@ -1,6 +1,6 @@
 package br.com.alura.controller;
 
-import br.com.alura.controller.documentation.EnrollmentDocumentation;
+import br.com.alura.controller.documentation.EnrollmentControllerDocumentation;
 import br.com.alura.model.dto.EnrollmentDto;
 import br.com.alura.service.EnrollmentService;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/enrollments", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @RequiredArgsConstructor
-public class EnrollmentController implements EnrollmentDocumentation {
+public class EnrollmentController implements EnrollmentControllerDocumentation {
 
     private final EnrollmentService enrollmentService;
 

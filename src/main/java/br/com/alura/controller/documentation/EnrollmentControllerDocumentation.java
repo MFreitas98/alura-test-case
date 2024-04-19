@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "Enrollment Controller", description = "Controller to create Enrollments on Alura API.")
-public interface EnrollmentDocumentation {
+public interface EnrollmentControllerDocumentation {
 
     @Operation(summary = "Create enrollment")
     @ApiResponses(value = {
