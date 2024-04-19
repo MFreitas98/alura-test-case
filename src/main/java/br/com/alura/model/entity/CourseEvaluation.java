@@ -1,12 +1,15 @@
 package br.com.alura.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Builder
 @Table(name = "course_evaluation")
 public class CourseEvaluation {
 
