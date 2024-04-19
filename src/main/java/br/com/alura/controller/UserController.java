@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -30,6 +31,7 @@ public class UserController implements UserControllerDocumentation {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/{userName}/findUser")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<UserDto> findUserByUsername(@PathVariable String userName) {

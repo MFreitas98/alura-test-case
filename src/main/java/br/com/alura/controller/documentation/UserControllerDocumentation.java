@@ -5,6 +5,7 @@ import br.com.alura.model.dto.UserDtoRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public interface UserControllerDocumentation {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")})
     ResponseEntity<?> createUser(@Valid @RequestBody UserDtoRequest userDtoRequest);
 
-    @Operation(summary = "Create user")
+    @Operation(summary = "Create user", security = {@SecurityRequirement(name = "Basic")})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User found"),
             @ApiResponse(responseCode = "204", description = "User not Found"),
