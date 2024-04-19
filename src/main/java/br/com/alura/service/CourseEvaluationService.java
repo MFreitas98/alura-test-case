@@ -33,11 +33,16 @@ public class CourseEvaluationService {
                 .orElseThrow(CourseNotRegisteredException::new);
 
         if (!course.isStatus()) {
-            throw new UnprocessableEntityException("Course informed its evaluate is not active.");
+            throw new UnprocessableEntityException("Course informed in evaluate is not active.");
         }
 
         User user = userService.findUserOptionalByUserName(courseEvaluationDto.getUserName())
                 .orElseThrow(UserNotRegisteredException::new);
+
+        if (score.getValue() < 6) {
+            EmailSenderService.send(course.getInstructor().getEmail(), user.getName(), score.getValue(), course.getName(),
+                    course.getInstructor().getName());
+        }
 
         CourseEvaluation courseEvaluation = CourseEvaluation.builder()
                 .score(score.getValue())
@@ -45,7 +50,6 @@ public class CourseEvaluationService {
                 .user(user)
                 .course(course)
                 .build();
-
         courseEvaluationRepository.save(courseEvaluation);
         log.info("CourseEvaluationService.createCourseEvaluation() -> finish_process");
     }
