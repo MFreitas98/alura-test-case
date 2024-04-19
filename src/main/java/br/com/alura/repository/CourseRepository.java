@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.OffsetDateTime;
+import java.util.Optional;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
@@ -21,5 +22,5 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query(value = "update Course c set c.status = :status, c.inactivatedAt = :inactivatedAt where c.code = :code")
     void updateCourse(boolean status, String code , OffsetDateTime inactivatedAt);
 
-    Course findByCode(String code);
+    Optional<Course> findByCode(String code);
 }

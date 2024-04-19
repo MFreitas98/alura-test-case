@@ -82,6 +82,6 @@ public class CourseService {
 
     public Optional<Course> findCourseOptionalByCode(String courseCode) {
         log.info("CourseService.findCourseOptionalByCode() -> init_process, courseCode {}", courseCode);
-        return Optional.of(courseRepository.findByCode(courseCode));
+        return courseRepository.findByCode(courseCode);
     }
 }
