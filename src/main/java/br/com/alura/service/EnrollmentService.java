@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -47,5 +49,10 @@ public class EnrollmentService {
         enrollmentRepository.save(enrollment);
 
         log.info("EnrollmentService.createEnrollment() -> finish_process");
+    }
+
+    public List<Long> findCoursesThatHaveMoreThanFourEnrollments() {
+        log.info("EnrollmentService.findCoursesThatHaveMoreThanFourEnrollments() -> init_process");
+       return enrollmentRepository.findCourseIdsWithFourOrMoreEnrollments();
     }
 }
