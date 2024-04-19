@@ -4,6 +4,7 @@ import br.com.alura.exception.CourseNotRegisteredException;
 import br.com.alura.exception.UnprocessableEntityException;
 import br.com.alura.exception.UserNotRegisteredException;
 import br.com.alura.model.dto.CourseEvaluationDto;
+import br.com.alura.model.dto.NetPromoterScoreDto;
 import br.com.alura.model.entity.Course;
 import br.com.alura.model.entity.CourseEvaluation;
 import br.com.alura.model.entity.User;
@@ -13,6 +14,11 @@ import br.com.alura.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -24,6 +30,8 @@ public class CourseEvaluationService {
     private final UserService userService;
 
     private final CourseService courseService;
+
+    private final EnrollmentService enrollmentService;
 
     public void createCourseEvaluation(CourseEvaluationDto courseEvaluationDto, ScoreValue score) {
         log.info("CourseEvaluationService.createCourseEvaluation() -> init_process , score {} , courseEvaluationDto {}",
@@ -52,5 +60,41 @@ public class CourseEvaluationService {
                 .build();
         courseEvaluationRepository.save(courseEvaluation);
         log.info("CourseEvaluationService.createCourseEvaluation() -> finish_process");
+    }
+
+    public List<NetPromoterScoreDto> generateNPS() {
+        log.info("CourseEvaluationService.generateNPS() -> init_process");
+
+        List<Long> coursesId = enrollmentService.findCoursesThatHaveMoreThanFourEnrollments();
+
+        if (coursesId.isEmpty()) {
+            throw new UnprocessableEntityException("There is no Courses with more than four enrollments.");
+        }
+        List<NetPromoterScoreDto> netPromoterScoreList = new ArrayList<>();
+        coursesId.forEach(courseId -> {
+
+            List<CourseEvaluation> courseEvaluationsRelated =
+                    courseEvaluationRepository.findCourseEvaluationByCourseId(courseId);
+
+            long promoters = courseEvaluationsRelated.stream().filter(e -> e.getScore() >= 9).count();
+            long neutrals = courseEvaluationsRelated.stream().filter(e -> e.getScore() >= 7 && e.getScore() <= 8).count();
+            long detractors = courseEvaluationsRelated.stream().filter(e -> e.getScore() <= 6).count();
+
+            long totalResponses = promoters + neutrals + detractors;
+
+            double promoterPercentage = (double) promoters / totalResponses * 100;
+            double detractorPercentage = (double) detractors / totalResponses * 100;
+
+            double npsValue = promoterPercentage - detractorPercentage;
+
+            netPromoterScoreList.add(NetPromoterScoreDto.builder()
+                    .courseCode(courseEvaluationsRelated.getFirst().getCourse().getCode())
+                    .courseName(courseEvaluationsRelated.getFirst().getCourse().getName())
+                    .score(npsValue)
+                    .build());
+
+        });
+        log.info("CourseEvaluationService.generateNPS() -> finish_process, netPromoterScoreList {}", netPromoterScoreList);
+        return netPromoterScoreList;
     }
 }
