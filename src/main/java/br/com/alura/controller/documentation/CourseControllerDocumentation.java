@@ -6,6 +6,7 @@ import br.com.alura.model.enums.StatusModifier;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Tag(name = "Course Controller", description = "Controller to create, find and update Courses on Alura API.")
 public interface CourseControllerDocumentation {
 
-    @Operation(summary = "Create Course")
+    @Operation(summary = "Create Course", security = {@SecurityRequirement(name = "Basic")})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Course Created"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
@@ -27,7 +28,7 @@ public interface CourseControllerDocumentation {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")})
     ResponseEntity<?> createCourse(@Valid @RequestBody CourseDto courseDto);
 
-    @Operation(summary = "List courses by StatusDelimiter")
+    @Operation(summary = "List courses by StatusDelimiter", security = {@SecurityRequirement(name = "Basic")})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved courses"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
@@ -39,7 +40,7 @@ public interface CourseControllerDocumentation {
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size);
 
-    @Operation(summary = "Change by code course status")
+    @Operation(summary = "Change by code course status", security = {@SecurityRequirement(name = "Basic")})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "202", description = "Successfully requested course status modification"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,6 +24,7 @@ public class CourseController implements CourseControllerDocumentation {
 
     private final CourseService courseService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/createCourse")
     public ResponseEntity<?> createCourse(@Valid @RequestBody CourseDto courseDto) {
         log.info("CourseController.createCourse() -> init_process");
@@ -30,6 +32,7 @@ public class CourseController implements CourseControllerDocumentation {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/listCoursesByStatusDelimiter")
     public ResponseEntity<Page<CourseDto>> listCoursesByStatus(
             @RequestParam(value = "status") CourseStatusDelimiter statusDelimiter,
@@ -43,6 +46,7 @@ public class CourseController implements CourseControllerDocumentation {
         return ResponseEntity.ok().body(coursePage);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{courseCode}/inactivateCourseByCode")
     public ResponseEntity<Void> updateCourseStatus(@PathVariable String courseCode,
                                                    @RequestParam(value = "statusModifier") StatusModifier statusModifier) {
