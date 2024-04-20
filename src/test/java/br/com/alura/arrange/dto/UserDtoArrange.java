@@ -26,6 +26,19 @@ public class UserDtoArrange {
         dtoRequest.setUserName("admin");
         dtoRequest.setName("test");
         dtoRequest.setEmail("test@gmail");
+        dtoRequest.setPassword("12345");
+        dtoRequest.setRole(Role.STUDENT);
+
+        return dtoRequest;
+    }
+
+    public static UserDtoRequest getInvalidUserDtoRequest() {
+
+        UserDtoRequest dtoRequest = new UserDtoRequest();
+        dtoRequest.setName("");
+        dtoRequest.setUserName("");
+        dtoRequest.setPassword("");
+        dtoRequest.setEmail("invalid_email");
         dtoRequest.setRole(Role.STUDENT);
 
         return dtoRequest;
