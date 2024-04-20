@@ -29,10 +29,10 @@ public interface CourseEvaluationControllerDocumentation {
     ResponseEntity<?> createCourseEvaluation(@Valid @RequestBody CourseEvaluationDto courseEvaluationDto,
                                              @RequestParam("score") ScoreValue scoreValue);
 
-    @Operation(summary = "Generate NPSs")
+    @Operation(summary = "Generate NPSs", security = {@SecurityRequirement(name = "Basic")})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "NetPromoterScores generated."),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "204", description = "There is not enough data to generateNPS"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")})

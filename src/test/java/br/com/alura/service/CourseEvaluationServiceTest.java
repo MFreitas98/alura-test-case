@@ -4,6 +4,7 @@ import br.com.alura.arrange.dto.CourseEvaluationDtoArrange;
 import br.com.alura.arrange.entity.CourseEntityArrange;
 import br.com.alura.arrange.entity.CourseEvaluationEntityArrange;
 import br.com.alura.arrange.entity.UserEntityArrange;
+import br.com.alura.exception.NPSDataNotFoundException;
 import br.com.alura.exception.UnprocessableEntityException;
 import br.com.alura.model.dto.CourseEvaluationDto;
 import br.com.alura.model.dto.NetPromoterScoreDto;
@@ -130,11 +131,11 @@ public class CourseEvaluationServiceTest {
     }
 
     @Test
-    void should_throw_unprocessable_entity_exception_less_than_four_enrollments() {
-        String errorMessage = "There is no Courses with more than four enrollments.";
+    void should_throw_nps_data_not_found_exception_less_than_four_enrollments() {
+        String errorMessage = "There is not enough data to generateNPS.";
         when(enrollmentService.findCoursesThatHaveMoreThanFourEnrollments()).thenReturn(List.of());
 
-        UnprocessableEntityException exception = assertThrows(UnprocessableEntityException.class, courseEvaluationService::generateNPS);
+        NPSDataNotFoundException exception = assertThrows(NPSDataNotFoundException.class, courseEvaluationService::generateNPS);
         assertEquals(exception.getMessage(), errorMessage);
     }
 

@@ -1,6 +1,7 @@
 package br.com.alura.service;
 
 import br.com.alura.exception.CourseNotRegisteredException;
+import br.com.alura.exception.NPSDataNotFoundException;
 import br.com.alura.exception.UnprocessableEntityException;
 import br.com.alura.exception.UserNotRegisteredException;
 import br.com.alura.model.dto.CourseEvaluationDto;
@@ -10,7 +11,6 @@ import br.com.alura.model.entity.CourseEvaluation;
 import br.com.alura.model.entity.User;
 import br.com.alura.model.enums.ScoreValue;
 import br.com.alura.repository.CourseEvaluationRepository;
-import br.com.alura.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -70,7 +68,7 @@ public class CourseEvaluationService {
         List<Long> coursesId = enrollmentService.findCoursesThatHaveMoreThanFourEnrollments();
 
         if (coursesId.isEmpty()) {
-            throw new UnprocessableEntityException("There is no Courses with more than four enrollments.");
+            throw new NPSDataNotFoundException();
         }
 
         List<NetPromoterScoreDto> netPromoterScoreList = new ArrayList<>();
