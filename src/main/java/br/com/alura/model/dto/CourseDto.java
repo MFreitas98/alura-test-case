@@ -6,10 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
@@ -18,6 +15,9 @@ import java.time.OffsetDateTime;
 @Setter
 @ToString
 @Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Schema(description = "CourseDtO from Alura API.")
 public class CourseDto implements Serializable {
 

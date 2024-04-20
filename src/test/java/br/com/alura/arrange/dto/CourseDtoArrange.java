@@ -16,10 +16,22 @@ public class CourseDtoArrange {
         validUserDto.setRole(Role.INSTRUCTOR);
 
         return CourseDto.builder()
+                .name("Java Advanced")
+                .instructorId(1L)
                 .code("java-adv")
                 .active(true)
                 .description("java course")
                 .instructor(validUserDto)
+                .build();
+    }
+
+    public static CourseDto getInvalidCourseDto() {
+
+        return CourseDto.builder()
+                .name("")
+                .code("12345678901")
+                .instructorId(null)
+                .description("A course on Java programming")
                 .build();
     }
 }
