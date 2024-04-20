@@ -37,9 +37,9 @@ public class AluraAPIExceptionHandler {
         return errors;
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler({UserNotFoundException.class, NPSDataNotFoundException.class})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ErrorMessage handleUserNotFoundException(final UserNotFoundException ex, WebRequest request) {
+    public ErrorMessage handleUserNotFoundException(final Exception ex, WebRequest request) {
         return handleError(HttpStatus.NOT_FOUND, ex.getMessage(), request.getDescription(false));
     }
 
