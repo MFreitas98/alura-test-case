@@ -16,9 +16,9 @@ spring:
   application:
     name: test-case-java
   datasource:
-    url: jdbc:mysql://localhost:3307/aluradb
-    username: alura
-    password: testedb
+    url: ${DB_URL:jdbc:mysql://localhost:3307/aluradb}
+    username: ${DB_USERNAME:alura}
+    password: ${DB_PASSWORD:testedb}
     driverClassName: com.mysql.cj.jdbc.Driver
   flyway:
     enabled: true
