@@ -39,7 +39,7 @@ public class CourseControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    void createCourse_Successful() throws Exception {
+    void create_course_Successful() throws Exception {
         CourseDto courseDto = CourseDtoArrange.getValidCourseDto();
         courseDto.setInstructorId(2L);
 
@@ -60,7 +60,7 @@ public class CourseControllerTest {
             "Java 123"
     })
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    void createCourse_InvalidInput_ReturnsBadRequest(final String courseCode) throws Exception {
+    void create_course_invalid_input_returns_badRequest(final String courseCode) throws Exception {
         CourseDto courseDto = CourseDtoArrange.getInvalidCourseDto();
         courseDto.setCode(courseCode);
 
@@ -78,7 +78,7 @@ public class CourseControllerTest {
     @ParameterizedTest
     @EnumSource(StatusModifier.class)
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    void updateCourseStatus_SuccessfulActivation(StatusModifier statusModifier) throws Exception {
+    void update_course_status_active_inactive_success(StatusModifier statusModifier) throws Exception {
         String courseCode = "java-adv";
 
         mockMvc.perform(MockMvcRequestBuilders.patch("/courses/{courseCode}/inactivateCourseByCode", courseCode)

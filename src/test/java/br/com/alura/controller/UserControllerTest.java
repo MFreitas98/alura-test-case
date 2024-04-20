@@ -39,7 +39,7 @@ public class UserControllerTest {
     private static final String USER_NAME = "test";
 
     @Test
-    void createUser_Successful() throws Exception {
+    void create_user_successful() throws Exception {
         UserDtoRequest userDtoRequest = UserDtoArrange.getValidUserDtoRequest();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/users/createUser")
@@ -49,7 +49,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void createUser_AllFieldsInvalid_ReturnsBadRequest() throws Exception {
+    void should_return_badRequest_all_fields_invalid() throws Exception {
         UserDtoRequest userDtoRequest = UserDtoArrange.getInvalidUserDtoRequest();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/users/createUser")
@@ -67,7 +67,7 @@ public class UserControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    void findUserByUsername_AuthenticatedAsAdmin_ReturnsUserDto() throws Exception {
+    void find_by_username_authenticatedAsAdmin_success() throws Exception {
         UserDto expectedUserDto = UserDtoArrange.getValidUserDto();
         when(userService.findUserDtoByUserName(USER_NAME)).thenReturn(expectedUserDto);
 
@@ -81,12 +81,9 @@ public class UserControllerTest {
         verify(userService, times(1)).findUserDtoByUserName(USER_NAME);
     }
 
-
-
-
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    void findUserByUsername_UserNotFound_ReturnsNoContent() throws Exception {
+    void should_return_noContent_find_by_username() throws Exception {
         when(userService.findUserDtoByUserName(USER_NAME)).thenThrow(new UserNotFoundException());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/users/{userName}/findUser", USER_NAME))
