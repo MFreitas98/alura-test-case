@@ -15,4 +15,12 @@ public class EnrollmentDtoArrange {
                 .userName("test")
                 .build();
     }
+
+    public static EnrollmentDto getInvalidEnrollmentDto() {
+
+        return EnrollmentDto.builder()
+                .courseCode("")
+                .userName("")
+                .build();
+    }
 }
