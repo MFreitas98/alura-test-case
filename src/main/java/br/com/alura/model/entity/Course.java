@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.OffsetDateTime;
-import java.util.Objects;
 
 @Getter
 @Setter
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
