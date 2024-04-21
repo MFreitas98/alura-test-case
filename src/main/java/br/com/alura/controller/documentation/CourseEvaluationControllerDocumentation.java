@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@Tag(name = "CourseEvaluation Controller", description = "Controller to create CourseEvaluation and generateNPS on Alura API.")
+@Tag(name = "Course Evaluation Controller", description = "Controller to create Course Evaluation and generateNPS on Alura API.")
 public interface CourseEvaluationControllerDocumentation {
 
     @Operation(summary = "Create CourseEvaluation", security = {@SecurityRequirement(name = "Basic")})

@@ -27,11 +27,10 @@ public interface UserControllerDocumentation {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")})
     ResponseEntity<?> createUser(@Valid @RequestBody UserDtoRequest userDtoRequest);
 
-    @Operation(summary = "Create user", security = {@SecurityRequirement(name = "Basic")})
+    @Operation(summary = "Find user by username", security = {@SecurityRequirement(name = "Basic")})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User found"),
             @ApiResponse(responseCode = "204", description = "User not Found"),
-            @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "403", description = "Forbidden"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")})
