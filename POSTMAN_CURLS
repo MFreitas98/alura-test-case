@@ -1,0 +1,113 @@
+ALURA API
+
+CONTROLLERS: User, Course, Enrollment e Course Evaluation.
+
+USER CONTROLLER:
+
+1 - Criar Usuário (Permissao: Aberto)
+
+Exemplo de CURL para postman.
+
+curl -X 'POST' \
+  'http://localhost:8080/api/users/createUser' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "Alura Admin",
+  "email": "alura@gmail.com",
+  "role": "ADMIN",
+  "userName": "aluraadmin",
+  "password": "12345"
+}'
+
+
+2 - Buscar Usuário pelo UserName (Permissao: Admin)
+
+OBS: Para executar seu usuario e senha terão que ter role ADMIN.
+
+curl -X 'GET' \
+  'http://localhost:8080/api/users/aluramarcelo/findUser' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Basic YWx1cmFtYXJjZWxvOjEyMzQ1'
+
+
+-----------------------------------------------------------------
+
+
+COURSE CONTROLLER:
+
+1 - Criar curso: (Permissao: Admin)
+
+OBS: O id do instrutor faz referencia ao usuario do user cadastrado.
+Note que o mesmo deverá ser criado com ROLE INSTRUCTOR.
+
+curl -X 'POST' \
+  'http://localhost:8080/api/courses/createCourse' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Basic YWx1cmFtYXJjZWxvOjEyMzQ1' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "Java Avancado",
+  "code": "java-adv",
+  "instructorId": 2,
+  "description": "Course that teachs advanced java."
+}
+
+
+2 - Buscar cursos por status ( ATIVO, INACTIVE, ALL) (Permissao: Admin)
+
+curl -X 'GET' \
+  'http://localhost:8080/api/courses/listCoursesByStatusDelimiter?status=ACTIVE&page=0&size=10' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Basic YWx1cmFtYXJjZWxvOjEyMzQ1'
+
+
+3 - Ativar/Inativar curso (Permissao: Admin)
+
+
+curl -X 'PATCH' \
+  'http://localhost:8080/api/courses/java-adv/inactivateCourseByCode?statusModifier=INACTIVATE' \
+  -H 'accept: */*' \
+  -H 'Authorization: Basic YWx1cmFtYXJjZWxvOjEyMzQ1'
+
+
+---------------------------------------------------------------------------------------
+
+
+ENROLLMENT CONTROLLER
+
+1 - Matricular-se em um curso ativo. (Permissao: Qualquer usuario logado)
+
+curl -X 'POST' \
+  'http://localhost:8080/api/enrollments/createEnrollment' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Basic YWRtaW50ZXN0OjEyMzQ1' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "userName": "admintest",
+  "courseCode": "java-adv"
+}'
+
+---------------------------------------------------------------------
+COURSE EVALUTATION CONTROLLER
+
+1 - Avaliar Curso (Pemissao: Student)
+
+curl -X 'POST' \
+  'http://localhost:8080/api/coursesEvaluations/createCourseEvaluation?score=TEN' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Basic YWx1cmFtYXJjZWxvOjEyMzQ1' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "userName": "teststudent",
+  "courseCode": "java-adv",
+  "scoreReason": "Great course."
+}'
+
+
+2 - Buscar gelatorio de NPS (Permissao: Qualquer usuario logado)
+
+curl -X 'GET' \
+  'http://localhost:8080/api/coursesEvaluations/generateNetPromoterScoreForAluraCourses' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Basic dGVzdHN0dWRlbnQ6MTIzNDU='
