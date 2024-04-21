@@ -1,9 +1,7 @@
 package br.com.alura.controller;
 
 import br.com.alura.arrange.dto.EnrollmentDtoArrange;
-import br.com.alura.arrange.dto.UserDtoArrange;
 import br.com.alura.model.dto.EnrollmentDto;
-import br.com.alura.model.dto.UserDtoRequest;
 import br.com.alura.service.EnrollmentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

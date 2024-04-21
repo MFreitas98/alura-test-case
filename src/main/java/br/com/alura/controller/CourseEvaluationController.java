@@ -30,6 +30,7 @@ public class CourseEvaluationController implements CourseEvaluationControllerDoc
                                                     @RequestParam("score") ScoreValue scoreValue) {
         log.info("CourseEvaluationController.createCourseEvaluation() -> init_process");
         courseEvaluationService.createCourseEvaluation(courseEvaluationDto, scoreValue);
+        log.info("CourseEvaluationController.createCourseEvaluation() -> finish_process");
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -37,6 +38,9 @@ public class CourseEvaluationController implements CourseEvaluationControllerDoc
     public ResponseEntity<List<NetPromoterScoreDto>> generateNetPromoterScore() {
         log.info("CourseEvaluationController.generateNetPromoterScore() -> init_process");
         List<NetPromoterScoreDto> netPromoterScoreList = courseEvaluationService.generateNPS();
+        log.info("CourseEvaluationController.generateNetPromoterScore() -> finish_process, " +
+                "netPromoterScoreList {}", netPromoterScoreList);
+
         return ResponseEntity.ok().body(netPromoterScoreList);
     }
 }

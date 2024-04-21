@@ -26,6 +26,7 @@ public class EnrollmentController implements EnrollmentControllerDocumentation {
     public ResponseEntity<?> createEnrollment(@Valid @RequestBody EnrollmentDto enrollmentDTO) {
         log.info("EnrollmentController.createEnrollment() -> init_process");
         enrollmentService.createEnrollment(enrollmentDTO);
+        log.info("EnrollmentController.createEnrollment() -> finish_process");
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

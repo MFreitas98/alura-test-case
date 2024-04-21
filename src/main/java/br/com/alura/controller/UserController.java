@@ -28,6 +28,7 @@ public class UserController implements UserControllerDocumentation {
     public ResponseEntity<?> createUser(@Valid @RequestBody UserDtoRequest userDtoRequest) {
         log.info("UserController.createUser() -> init_process");
         userService.createUser(userDtoRequest);
+        log.info("UserController.createUser() -> finish_process");
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

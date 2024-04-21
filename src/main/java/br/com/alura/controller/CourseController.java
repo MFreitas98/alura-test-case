@@ -50,7 +50,9 @@ public class CourseController implements CourseControllerDocumentation {
     @PatchMapping("/{courseCode}/inactivateCourseByCode")
     public ResponseEntity<Void> updateCourseStatus(@PathVariable String courseCode,
                                                    @RequestParam(value = "statusModifier") StatusModifier statusModifier) {
+        log.info("CourseController.updateCourseStatus() -> init_process, courseCode {}, statusModifier {}", courseCode, statusModifier);
         courseService.updateCourseStatus(courseCode, statusModifier);
+        log.info("CourseController.updateCourseStatus() -> finish_process");
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

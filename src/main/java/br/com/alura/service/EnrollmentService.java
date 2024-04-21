@@ -53,6 +53,6 @@ public class EnrollmentService {
 
     public List<Long> findCoursesThatHaveMoreThanFourEnrollments() {
         log.info("EnrollmentService.findCoursesThatHaveMoreThanFourEnrollments() -> init_process");
-       return enrollmentRepository.findCourseIdsWithFourOrMoreEnrollments();
+        return enrollmentRepository.findCourseIdsWithFourOrMoreEnrollments();
     }
 }
